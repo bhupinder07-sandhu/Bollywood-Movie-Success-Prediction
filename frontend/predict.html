@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie Prediction</title>
+<title>Bollywood Movie Success Prediction</title>
 
 <style>
 *{
@@ -25,11 +25,11 @@ body{
 
 .container{
     width:100%;
-    max-width:700px;
+    max-width:750px;
     background:#1a1a1a;
     padding:30px;
     border-radius:20px;
-    box-shadow:0 0 20px rgba(245,197,24,0.2);
+    box-shadow:0 0 20px rgba(245,197,24,0.25);
 }
 
 .back-btn{
@@ -67,13 +67,18 @@ select{
     font-size:16px;
 }
 
+input:focus,
+select:focus{
+    outline:2px solid #f5c518;
+}
+
 button{
     width:100%;
     padding:15px;
-    border:none;
-    border-radius:10px;
     background:#f5c518;
     color:black;
+    border:none;
+    border-radius:10px;
     font-size:18px;
     font-weight:bold;
     cursor:pointer;
@@ -100,8 +105,8 @@ button:hover{
     background:#8b1e1e;
 }
 </style>
-
 </head>
+
 <body>
 
 <div class="container">
@@ -116,8 +121,8 @@ button:hover{
 </div>
 
 <div class="input-group">
-<label>Budget</label>
-<input type="number" id="budget">
+<label>Worldwide Collection</label>
+<input type="number" id="worldwide">
 </div>
 
 <div class="input-group">
@@ -136,13 +141,18 @@ button:hover{
 </div>
 
 <div class="input-group">
+<label>Budget</label>
+<input type="number" id="budget">
+</div>
+
+<div class="input-group">
 <label>Select Algorithm</label>
 <select id="algorithm">
-<option>KNN</option>
-<option>Random Forest</option>
-<option>Decision Tree</option>
-<option>Logistic Regression</option>
-<option>SVM</option>
+<option value="KNN">KNN</option>
+<option value="Random Forest">Random Forest</option>
+<option value="Decision Tree">Decision Tree</option>
+<option value="Logistic Regression">Logistic Regression</option>
+<option value="SVM">SVM</option>
 </select>
 </div>
 
@@ -159,58 +169,85 @@ Predict Movie Success
 async function predictMovie(){
 
     const movieName = document.getElementById("movieName").value;
-    const budget = document.getElementById("budget").value;
+    const worldwide = document.getElementById("worldwide").value;
     const indiaNet = document.getElementById("indiaNet").value;
     const indiaGross = document.getElementById("indiaGross").value;
     const overseas = document.getElementById("overseas").value;
+    const budget = document.getElementById("budget").value;
     const algorithm = document.getElementById("algorithm").value;
 
-    if(!budget || !indiaNet || !indiaGross || !overseas){
+    if(
+        !worldwide ||
+        !indiaNet ||
+        !indiaGross ||
+        !overseas ||
+        !budget
+    ){
         alert("Please fill all fields");
         return;
     }
 
-    const response = await fetch("/api/predict",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            movie_name:movieName,
-            budget:budget,
-            india_net:indiaNet,
-            india_gross:indiaGross,
-            overseas:overseas,
-            algorithm:algorithm
-        })
-    });
+    try{
 
-    const data = await response.json();
+        const response = await fetch("/api/predict",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                worldwide: worldwide,
+                india_net: indiaNet,
+                india_gross: indiaGross,
+                overseas: overseas,
+                budget: budget,
+                algorithm: algorithm
+            })
+        });
 
-    const resultDiv = document.getElementById("result");
+        const data = await response.json();
 
-    resultDiv.style.display = "block";
+        const resultDiv = document.getElementById("result");
 
-    if(data.prediction === "Hit"){
+        resultDiv.style.display = "block";
 
-        resultDiv.className = "result hit";
+        if(data.prediction === "Hit"){
 
-        resultDiv.innerHTML = `
-        <h2>🎉 HIT</h2>
-        <br>
-        <p><strong>Movie:</strong> ${movieName}</p>
-        <p><strong>Model:</strong> ${algorithm}</p>
-        `;
-    }
-    else{
+            resultDiv.className = "result hit";
 
+            resultDiv.innerHTML = `
+                <h2>🎉 HIT</h2>
+                <br>
+                <p><strong>Movie:</strong> ${movieName || "N/A"}</p>
+                <p><strong>Model:</strong> ${algorithm}</p>
+                <p><strong>Prediction:</strong> ${data.prediction}</p>
+            `;
+        }
+        else{
+
+            resultDiv.className = "result flop";
+
+            resultDiv.innerHTML = `
+                <h2>❌ FLOP</h2>
+                <br>
+                <p><strong>Movie:</strong> ${movieName || "N/A"}</p>
+                <p><strong>Model:</strong> ${algorithm}</p>
+                <p><strong>Prediction:</strong> ${data.prediction}</p>
+            `;
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        const resultDiv = document.getElementById("result");
+
+        resultDiv.style.display = "block";
         resultDiv.className = "result flop";
 
         resultDiv.innerHTML = `
-        <h2>❌ FLOP</h2>
-        <br>
-        <p><strong>Movie:</strong> ${movieName}</p>
-        <p><strong>Model:</strong> ${algorithm}</p>
+            <h2>⚠ Error</h2>
+            <br>
+            <p>Failed to connect to prediction API.</p>
         `;
     }
 }

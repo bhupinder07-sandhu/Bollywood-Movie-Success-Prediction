@@ -1,32 +1,36 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+import os
 
 app = Flask(__name__)
 
-svm = joblib.load("models/svm.pkl")
-rf = joblib.load("models/rf.pkl")
-dt = joblib.load("models/dt.pkl")
-knn = joblib.load("models/knn.pkl")
-lr = joblib.load("models/lr.pkl")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-scaler = joblib.load("models/scaler.pkl")
-label_encoder = joblib.load("models/label_encoder.pkl")
+svm = joblib.load(os.path.join(BASE_DIR, "models", "svm.pkl"))
+rf = joblib.load(os.path.join(BASE_DIR, "models", "rf.pkl"))
+dt = joblib.load(os.path.join(BASE_DIR, "models", "dt.pkl"))
+knn = joblib.load(os.path.join(BASE_DIR, "models", "knn.pkl"))
+lr = joblib.load(os.path.join(BASE_DIR, "models", "lr.pkl"))
 
+scaler = joblib.load(os.path.join(BASE_DIR, "models", "scaler.pkl"))
+label_encoder = joblib.load(os.path.join(BASE_DIR, "models", "label_encoder.pkl"))
 
 @app.route("/api/predict", methods=["POST"])
 def predict():
 
     data = request.get_json()
 
-    budget = float(data["budget"])
+    worldwide = float(data["worldwide"])
     india_net = float(data["india_net"])
     india_gross = float(data["india_gross"])
     overseas = float(data["overseas"])
+    budget = float(data["budget"])
 
     algorithm = data["algorithm"]
 
     features = np.array([[
+        worldwide,
         india_net,
         india_gross,
         overseas,
@@ -52,7 +56,7 @@ def predict():
 
     else:
         return jsonify({
-            "error":"Invalid Model"
+            "error": "Invalid Model Selected"
         })
 
     prediction = model.predict(features)
@@ -60,9 +64,8 @@ def predict():
     result = label_encoder.inverse_transform(prediction)
 
     return jsonify({
-        "prediction": result[0]
+        "prediction": str(result[0])
     })
-
 
 if __name__ == "__main__":
     app.run(debug=True)
