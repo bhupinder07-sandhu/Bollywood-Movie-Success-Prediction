@@ -3,185 +3,333 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Bollywood Movie Success Prediction</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-body{
-    background:#0f0f0f;
-    color:white;
+    font-family:'Poppins',sans-serif;
 }
 
 html{
     scroll-behavior:smooth;
 }
 
-section{
-    padding:80px 10%;
+body{
+    background:#080808;
+    color:white;
+    overflow-x:hidden;
 }
 
 .hero{
     min-height:100vh;
+
+    background:
+    linear-gradient(
+    rgba(0,0,0,.75),
+    rgba(0,0,0,.85)
+    ),
+
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1500&q=80");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
+
+    padding:40px;
+}
+
+.hero-content{
+    max-width:900px;
 }
 
 .hero h1{
-    font-size:4rem;
+
+    font-size:5rem;
+
+    line-height:1.1;
+
+    margin-bottom:25px;
+
     color:#f5c518;
-    margin-bottom:20px;
+
+    text-shadow:
+    0 0 15px rgba(245,197,24,.4),
+    0 0 35px rgba(245,197,24,.3);
 }
 
 .hero p{
-    font-size:1.2rem;
-    max-width:800px;
-    color:#d6d6d6;
+
+    font-size:1.3rem;
+
+    color:#d7d7d7;
+
     line-height:1.8;
+
     margin-bottom:40px;
 }
 
 .btn{
+
     display:inline-block;
-    padding:15px 35px;
-    background:#f5c518;
-    color:black;
+
     text-decoration:none;
-    border-radius:12px;
-    font-weight:bold;
+
+    padding:18px 45px;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+    135deg,
+    #c1121f,
+    #f5c518
+    );
+
+    color:white;
+
     font-size:18px;
-    transition:.3s;
+
+    font-weight:700;
+
+    transition:.4s;
+
+    box-shadow:
+    0 10px 30px rgba(245,197,24,.3);
 }
 
 .btn:hover{
-    transform:translateY(-3px);
+
+    transform:
+    translateY(-5px)
+    scale(1.03);
+}
+
+section{
+    padding:90px 10%;
 }
 
 .section-title{
+
     text-align:center;
+
     color:#f5c518;
-    margin-bottom:40px;
-    font-size:2rem;
+
+    font-size:2.3rem;
+
+    margin-bottom:50px;
 }
 
 .stats{
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
     gap:25px;
 }
 
 .card{
-    background:#1a1a1a;
-    padding:30px;
-    border-radius:20px;
+
+    background:#141414;
+
+    border:1px solid rgba(245,197,24,.15);
+
+    padding:35px;
+
+    border-radius:25px;
+
     text-align:center;
-    box-shadow:0 0 20px rgba(245,197,24,.1);
-    transition:.3s;
+
+    transition:.4s;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
 }
 
 .card:hover{
-    transform:translateY(-5px);
+
+    transform:
+    translateY(-10px);
+
+    border-color:#f5c518;
 }
 
 .card h3{
+
     color:#f5c518;
+
     margin-bottom:10px;
+
+    font-size:1.2rem;
 }
 
 .card p{
-    font-size:1.1rem;
+
+    font-size:1.2rem;
+
+    color:#f1f1f1;
+}
+
+.ticket{
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.ticket::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:linear-gradient(
+    90deg,
+    #c1121f,
+    #f5c518
+    );
 }
 
 .about-card{
-    background:#1a1a1a;
-    padding:40px;
-    border-radius:20px;
+
+    background:#141414;
+
+    padding:45px;
+
+    border-radius:25px;
+
     text-align:center;
-    line-height:1.8;
-    box-shadow:0 0 20px rgba(245,197,24,.1);
+
+    line-height:2;
+
+    font-size:1.1rem;
+
+    border:1px solid rgba(245,197,24,.15);
 }
 
 .leaderboard{
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
 }
 
-.rank1{
+.gold{
     border:2px solid gold;
 }
 
-.rank2{
+.silver{
     border:2px solid silver;
 }
 
-.rank3{
+.bronze{
     border:2px solid #cd7f32;
 }
 
 .features{
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
     gap:25px;
 }
 
-.feature-card{
-    background:#1a1a1a;
-    padding:30px;
-    border-radius:20px;
+.feature{
+
+    background:#141414;
+
+    padding:35px;
+
+    border-radius:25px;
+
     text-align:center;
-    box-shadow:0 0 20px rgba(245,197,24,.1);
+
+    border:1px solid rgba(245,197,24,.15);
+
+    transition:.4s;
 }
 
-.feature-card h3{
+.feature:hover{
+    transform:translateY(-10px);
+}
+
+.feature h3{
     color:#f5c518;
     margin-bottom:15px;
 }
 
 .developer{
-    max-width:700px;
+
+    max-width:800px;
+
     margin:auto;
 }
 
 .developer-card{
-    background:#1a1a1a;
-    padding:40px;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 0 20px rgba(245,197,24,.1);
-}
 
-.developer-card h2{
-    color:#f5c518;
-    margin-bottom:15px;
+    background:#141414;
+
+    padding:50px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    border:1px solid rgba(245,197,24,.15);
 }
 
 .tech{
-    margin-top:20px;
+
+    margin-top:25px;
 }
 
 .tech span{
+
     display:inline-block;
-    margin:5px;
+
+    margin:6px;
+
     padding:10px 15px;
-    background:#2a2a2a;
+
+    background:#222;
+
     border-radius:10px;
 }
 
 footer{
+
     text-align:center;
-    padding:30px;
+
+    padding:40px;
+
     background:#111;
-    margin-top:40px;
 }
 
 footer h3{
@@ -192,58 +340,70 @@ footer h3{
 @media(max-width:768px){
 
 .hero h1{
-    font-size:2.5rem;
+    font-size:3rem;
 }
 
 .hero p{
     font-size:1rem;
 }
 
+.section-title{
+    font-size:1.8rem;
+}
+
 }
 
 </style>
 </head>
+
 <body>
 
 <section class="hero">
 
-<h1>🎬 Bollywood Movie Success Prediction</h1>
+<div class="hero-content">
+
+<h1>
+🎬 Bollywood Movie Success Prediction
+</h1>
 
 <p>
-Predict whether a Bollywood movie will become a Hit or Flop
-using advanced Machine Learning algorithms trained on
-real-world movie performance indicators.
+Lights. Camera. Prediction.
+Predict whether a Bollywood movie will become a
+Box Office Hit or Flop using Machine Learning.
 </p>
 
 <a href="/predict" class="btn">
-Start Prediction →
+🎟 Start Prediction
 </a>
+
+</div>
 
 </section>
 
 <section>
+<section>
 
-<h2 class="section-title">Project Statistics</h2>
+<h2 class="section-title">🎟 Box Office Highlights</h2>
 
 <div class="stats">
 
-<div class="card">
-<h3>🎯 Accuracy</h3>
+<div class="card ticket">
+<h3>🎯 Prediction Accuracy</h3>
 <p>89.36%</p>
 </div>
 
-<div class="card">
-<h3>🏆 Best Model</h3>
+<div class="card ticket">
+<h3>🏆 Best Performing Model</h3>
 <p>KNN</p>
 </div>
 
-<div class="card">
-<h3>🤖 Algorithms</h3>
-<p>5 Models</p>
+<div class="card ticket">
+<h3>🤖 Machine Learning Models</h3>
+<p>5 Algorithms</p>
 </div>
 
-<div class="card">
-<h3>🎬 Prediction</h3>
+<div class="card ticket">
+<h3>⭐ Final Outcome</h3>
 <p>Hit / Flop</p>
 </div>
 
@@ -253,19 +413,18 @@ Start Prediction →
 
 <section>
 
-<h2 class="section-title">About Project</h2>
+<h2 class="section-title">🍿 About The Project</h2>
 
 <div class="about-card">
 
-This machine learning application predicts the success of a
-Bollywood movie using multiple classification algorithms.
+This intelligent prediction system analyzes movie
+financial indicators and predicts whether a Bollywood
+movie is likely to become a Box Office Hit or Flop.
 
-The system compares KNN, Random Forest, Decision Tree,
-Logistic Regression, and SVM models to determine whether
-a movie is likely to become a Hit or a Flop.
-
-The best-performing model is automatically identified
-based on accuracy and performance evaluation.
+The application compares multiple machine learning
+algorithms including KNN, Random Forest, Decision Tree,
+Logistic Regression and SVM to determine the most
+accurate prediction.
 
 </div>
 
@@ -273,32 +432,38 @@ based on accuracy and performance evaluation.
 
 <section>
 
-<h2 class="section-title">Model Leaderboard</h2>
+<h2 class="section-title">🏆 Model Awards</h2>
 
 <div class="leaderboard">
 
-<div class="card rank1">
-<h3>🥇 KNN</h3>
+<div class="card gold">
+<h3>🥇 Filmfare Winner</h3>
+<p>KNN</p>
+<br>
 <p>Accuracy: 89.36%</p>
 </div>
 
-<div class="card rank2">
-<h3>🥈 Random Forest</h3>
+<div class="card silver">
+<h3>🥈 Critics Choice</h3>
+<p>Random Forest</p>
+<br>
 <p>Accuracy: 84.57%</p>
 </div>
 
-<div class="card rank3">
-<h3>🥉 Decision Tree</h3>
+<div class="card bronze">
+<h3>🥉 Audience Choice</h3>
+<p>Decision Tree</p>
+<br>
 <p>Accuracy: 84.04%</p>
 </div>
 
 <div class="card">
-<h3>4️⃣ Logistic Regression</h3>
+<h3>🎬 Logistic Regression</h3>
 <p>Accuracy: 72.87%</p>
 </div>
 
 <div class="card">
-<h3>5️⃣ SVM</h3>
+<h3>🎥 SVM</h3>
 <p>Accuracy: 71.28%</p>
 </div>
 
@@ -308,28 +473,74 @@ based on accuracy and performance evaluation.
 
 <section>
 
-<h2 class="section-title">Features</h2>
+<h2 class="section-title">🎬 Prediction Journey</h2>
 
 <div class="features">
 
-<div class="feature-card">
-<h3>🎯 Hit / Flop Prediction</h3>
-<p>Predict movie success instantly.</p>
+<div class="feature">
+<h3>1️⃣ Enter Movie Details</h3>
+<p>
+Provide movie financial information.
+</p>
 </div>
 
-<div class="feature-card">
-<h3>🏆 Multiple ML Models</h3>
-<p>Compare predictions from five algorithms.</p>
+<div class="feature">
+<h3>2️⃣ Select Algorithm</h3>
+<p>
+Choose your preferred machine learning model.
+</p>
 </div>
 
-<div class="feature-card">
-<h3>📊 Real-Time Results</h3>
-<p>Instant prediction using trained models.</p>
+<div class="feature">
+<h3>3️⃣ Analyze Data</h3>
+<p>
+The model evaluates movie performance indicators.
+</p>
 </div>
 
-<div class="feature-card">
-<h3>⚡ Interactive Dashboard</h3>
-<p>Modern and user-friendly interface.</p>
+<div class="feature">
+<h3>4️⃣ Get Prediction</h3>
+<p>
+Instantly receive Hit or Flop results.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">🎞 Key Features</h2>
+
+<div class="features">
+
+<div class="feature">
+<h3>🎬 Box Office Analysis</h3>
+<p>
+Analyze movie financial performance indicators.
+</p>
+</div>
+
+<div class="feature">
+<h3>📊 Real-Time Prediction</h3>
+<p>
+Generate movie success predictions instantly.
+</p>
+</div>
+
+<div class="feature">
+<h3>🤖 AI Powered Models</h3>
+<p>
+Five machine learning algorithms.
+</p>
+</div>
+
+<div class="feature">
+<h3>🏆 Multi Model Comparison</h3>
+<p>
+Compare performance across different models.
+</p>
 </div>
 
 </div>
@@ -338,11 +549,13 @@ based on accuracy and performance evaluation.
 
 <section class="developer">
 
-<h2 class="section-title">Developer</h2>
+<h2 class="section-title">🎬 Director</h2>
 
 <div class="developer-card">
 
-<h2>👨‍💻 Bhupinder Sandhu</h2>
+<h2>
+👨‍💻 Bhupinder Sandhu
+</h2>
 
 <p>
 Machine Learning Developer
@@ -366,13 +579,19 @@ Machine Learning Developer
 
 <footer>
 
-<h3>Bollywood Movie Success Prediction</h3>
+<h3>
+🎬 Bollywood Movie Success Prediction
+</h3>
 
-<p>Machine Learning Project 2026</p>
+<p>
+Lights • Camera • Machine Learning
+</p>
 
 <br>
 
-<p>Developed by <strong>Bhupinder Sandhu</strong></p>
+<p>
+Developed by <strong>Bhupinder Sandhu</strong>
+</p>
 
 </footer>
 
