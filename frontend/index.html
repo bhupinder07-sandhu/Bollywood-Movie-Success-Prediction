@@ -6,16 +6,25 @@
 <title>Bollywood Movie Success Prediction</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
     background:#0f0f0f;
     color:white;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+section{
+    padding:80px 10%;
 }
 
 .hero{
@@ -25,165 +34,346 @@ body{
     justify-content:center;
     align-items:center;
     text-align:center;
-    padding:20px;
 }
 
-h1{
-    font-size:3rem;
+.hero h1{
+    font-size:4rem;
     color:#f5c518;
     margin-bottom:20px;
 }
 
-.subtitle{
+.hero p{
     font-size:1.2rem;
     max-width:800px;
-    color:#d1d1d1;
-    line-height:1.6;
-    margin-bottom:30px;
+    color:#d6d6d6;
+    line-height:1.8;
+    margin-bottom:40px;
 }
 
 .btn{
     display:inline-block;
+    padding:15px 35px;
     background:#f5c518;
     color:black;
-    padding:15px 35px;
     text-decoration:none;
-    border-radius:10px;
+    border-radius:12px;
     font-weight:bold;
+    font-size:18px;
+    transition:.3s;
 }
 
-.section{
-    padding:60px 10%;
+.btn:hover{
+    transform:translateY(-3px);
 }
 
-.section h2{
+.section-title{
+    text-align:center;
     color:#f5c518;
-    margin-bottom:20px;
+    margin-bottom:40px;
+    font-size:2rem;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
 }
 
 .card{
     background:#1a1a1a;
-    padding:20px;
-    border-radius:15px;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(245,197,24,.1);
+    transition:.3s;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    color:#f5c518;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:1.1rem;
+}
+
+.about-card{
+    background:#1a1a1a;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    line-height:1.8;
+    box-shadow:0 0 20px rgba(245,197,24,.1);
+}
+
+.leaderboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.rank1{
+    border:2px solid gold;
+}
+
+.rank2{
+    border:2px solid silver;
+}
+
+.rank3{
+    border:2px solid #cd7f32;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.feature-card{
+    background:#1a1a1a;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(245,197,24,.1);
+}
+
+.feature-card h3{
+    color:#f5c518;
+    margin-bottom:15px;
+}
+
+.developer{
+    max-width:700px;
+    margin:auto;
+}
+
+.developer-card{
+    background:#1a1a1a;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(245,197,24,.1);
+}
+
+.developer-card h2{
+    color:#f5c518;
+    margin-bottom:15px;
+}
+
+.tech{
     margin-top:20px;
 }
 
-th,td{
-    border:1px solid #333;
-    padding:12px;
-    text-align:center;
-}
-
-th{
-    background:#f5c518;
-    color:black;
-}
-
-.best{
-    color:#4CAF50;
-    font-weight:bold;
+.tech span{
+    display:inline-block;
+    margin:5px;
+    padding:10px 15px;
+    background:#2a2a2a;
+    border-radius:10px;
 }
 
 footer{
     text-align:center;
-    padding:25px;
+    padding:30px;
+    background:#111;
+    margin-top:40px;
 }
+
+footer h3{
+    color:#f5c518;
+    margin-bottom:10px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:2.5rem;
+}
+
+.hero p{
+    font-size:1rem;
+}
+
+}
+
 </style>
 </head>
-
 <body>
 
 <section class="hero">
 
 <h1>🎬 Bollywood Movie Success Prediction</h1>
 
-<p class="subtitle">
-Predict whether a Bollywood movie will be a Hit or Flop using
-Machine Learning Classification Algorithms.
+<p>
+Predict whether a Bollywood movie will become a Hit or Flop
+using advanced Machine Learning algorithms trained on
+real-world movie performance indicators.
 </p>
 
 <a href="/predict" class="btn">
-Start Prediction
+Start Prediction →
 </a>
 
 </section>
 
-<section class="section">
+<section>
 
-<h2>Project Overview</h2>
+<h2 class="section-title">Project Statistics</h2>
+
+<div class="stats">
 
 <div class="card">
-<ul>
-<li>Budget</li>
-<li>India Net Collection</li>
-<li>India Gross Collection</li>
-<li>Overseas Collection</li>
-</ul>
+<h3>🎯 Accuracy</h3>
+<p>89.36%</p>
+</div>
 
-<br>
+<div class="card">
+<h3>🏆 Best Model</h3>
+<p>KNN</p>
+</div>
 
-Target Variable:
-<strong>Hit / Flop</strong>
+<div class="card">
+<h3>🤖 Algorithms</h3>
+<p>5 Models</p>
+</div>
+
+<div class="card">
+<h3>🎬 Prediction</h3>
+<p>Hit / Flop</p>
+</div>
+
 </div>
 
 </section>
 
-<section class="section">
+<section>
 
-<h2>Model Performance</h2>
+<h2 class="section-title">About Project</h2>
 
-<table>
-<tr>
-<th>Algorithm</th>
-<th>Accuracy</th>
-</tr>
+<div class="about-card">
 
-<tr>
-<td>KNN</td>
-<td class="best">89.36%</td>
-</tr>
+This machine learning application predicts the success of a
+Bollywood movie using multiple classification algorithms.
 
-<tr>
-<td>Random Forest</td>
-<td>84.57%</td>
-</tr>
+The system compares KNN, Random Forest, Decision Tree,
+Logistic Regression, and SVM models to determine whether
+a movie is likely to become a Hit or a Flop.
 
-<tr>
-<td>Decision Tree</td>
-<td>84.04%</td>
-</tr>
+The best-performing model is automatically identified
+based on accuracy and performance evaluation.
 
-<tr>
-<td>Logistic Regression</td>
-<td>72.87%</td>
-</tr>
-
-<tr>
-<td>SVM</td>
-<td>71.28%</td>
-</tr>
-
-</table>
+</div>
 
 </section>
 
-<section class="section">
+<section>
 
-<h2>Dataset</h2>
+<h2 class="section-title">Model Leaderboard</h2>
+
+<div class="leaderboard">
+
+<div class="card rank1">
+<h3>🥇 KNN</h3>
+<p>Accuracy: 89.36%</p>
+</div>
+
+<div class="card rank2">
+<h3>🥈 Random Forest</h3>
+<p>Accuracy: 84.57%</p>
+</div>
+
+<div class="card rank3">
+<h3>🥉 Decision Tree</h3>
+<p>Accuracy: 84.04%</p>
+</div>
 
 <div class="card">
-Top 1000 Bollywood Movies and Their Box Office Collection Dataset
+<h3>4️⃣ Logistic Regression</h3>
+<p>Accuracy: 72.87%</p>
+</div>
+
+<div class="card">
+<h3>5️⃣ SVM</h3>
+<p>Accuracy: 71.28%</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">Features</h2>
+
+<div class="features">
+
+<div class="feature-card">
+<h3>🎯 Hit / Flop Prediction</h3>
+<p>Predict movie success instantly.</p>
+</div>
+
+<div class="feature-card">
+<h3>🏆 Multiple ML Models</h3>
+<p>Compare predictions from five algorithms.</p>
+</div>
+
+<div class="feature-card">
+<h3>📊 Real-Time Results</h3>
+<p>Instant prediction using trained models.</p>
+</div>
+
+<div class="feature-card">
+<h3>⚡ Interactive Dashboard</h3>
+<p>Modern and user-friendly interface.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="developer">
+
+<h2 class="section-title">Developer</h2>
+
+<div class="developer-card">
+
+<h2>👨‍💻 Bhupinder Sandhu</h2>
+
+<p>
+Machine Learning Developer
+</p>
+
+<div class="tech">
+
+<span>Python</span>
+<span>Scikit-Learn</span>
+<span>Flask</span>
+<span>HTML</span>
+<span>CSS</span>
+<span>JavaScript</span>
+<span>Vercel</span>
+
+</div>
+
 </div>
 
 </section>
 
 <footer>
-Bollywood Movie Success Prediction © 2026
+
+<h3>Bollywood Movie Success Prediction</h3>
+
+<p>Machine Learning Project 2026</p>
+
+<br>
+
+<p>Developed by <strong>Bhupinder Sandhu</strong></p>
+
 </footer>
 
 </body>
