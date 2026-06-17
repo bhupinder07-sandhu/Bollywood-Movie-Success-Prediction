@@ -3,107 +3,237 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bollywood Movie Success Prediction</title>
+
+<title>Movie Success Predictor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:'Poppins',sans-serif;
 }
 
 body{
-    background:#0f0f0f;
-    color:white;
+
+    background:
+    linear-gradient(
+    rgba(0,0,0,.82),
+    rgba(0,0,0,.88)
+    ),
+
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1500&q=80");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
     min-height:100vh;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     padding:30px;
+
+    color:white;
 }
 
 .container{
+
     width:100%;
-    max-width:750px;
-    background:#1a1a1a;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 0 20px rgba(245,197,24,0.25);
+    max-width:850px;
+
+    background:#141414;
+
+    border:1px solid rgba(245,197,24,.15);
+
+    border-radius:25px;
+
+    padding:35px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.4);
 }
 
 .back-btn{
-    display:inline-block;
-    margin-bottom:20px;
+
     text-decoration:none;
+
     color:#f5c518;
-    font-weight:bold;
+
+    font-weight:600;
 }
 
 h1{
+
     text-align:center;
+
     color:#f5c518;
-    margin-bottom:25px;
+
+    margin-top:15px;
+
+    margin-bottom:8px;
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#d0d0d0;
+
+    margin-bottom:30px;
+}
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:18px;
 }
 
 .input-group{
-    margin-bottom:18px;
+    margin-bottom:15px;
 }
 
 label{
+
     display:block;
+
     margin-bottom:8px;
-    font-weight:bold;
+
+    font-weight:500;
 }
 
 input,
 select{
+
     width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#2a2a2a;
+
+    padding:14px;
+
+    background:#1f1f1f;
+
+    border:1px solid #333;
+
+    border-radius:12px;
+
     color:white;
-    font-size:16px;
+
+    font-size:15px;
 }
 
 input:focus,
 select:focus{
-    outline:2px solid #f5c518;
+
+    outline:none;
+
+    border-color:#f5c518;
+}
+
+.model-card{
+
+    margin-top:20px;
+
+    background:#1c1c1c;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    border-left:4px solid #f5c518;
+}
+
+#modelInfo{
+
+    color:#f5c518;
+
+    font-weight:600;
 }
 
 button{
+
     width:100%;
-    padding:15px;
-    background:#f5c518;
-    color:black;
+
+    margin-top:25px;
+
+    padding:16px;
+
     border:none;
-    border-radius:10px;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+    135deg,
+    #c1121f,
+    #f5c518
+    );
+
+    color:white;
+
     font-size:18px;
-    font-weight:bold;
+
+    font-weight:700;
+
     cursor:pointer;
+
+    transition:.3s;
 }
 
 button:hover{
-    opacity:0.9;
+
+    transform:translateY(-3px);
 }
 
 .result{
-    margin-top:20px;
-    padding:20px;
-    border-radius:10px;
-    text-align:center;
+
+    margin-top:25px;
+
+    padding:25px;
+
+    border-radius:20px;
+
     display:none;
-    font-size:18px;
+
+    text-align:center;
 }
 
 .hit{
-    background:#1f7a3d;
+
+    background:#14532d;
 }
 
 .flop{
-    background:#8b1e1e;
+
+    background:#7f1d1d;
 }
+
+.result h2{
+    margin-bottom:10px;
+}
+
+.result p{
+    margin:8px 0;
+}
+
+@media(max-width:768px){
+
+.container{
+    padding:25px;
+}
+
+h1{
+    font-size:1.8rem;
+}
+
+}
+
 </style>
 </head>
 
@@ -111,13 +241,19 @@ button:hover{
 
 <div class="container">
 
-<a href="/" class="back-btn">← Back to Home</a>
+<a href="/" class="back-btn">← Back To Home</a>
 
-<h1>🎬 Predict Movie Success</h1>
+<h1>🎬 Movie Success Predictor</h1>
+
+<p class="subtitle">
+Enter movie details and let Machine Learning predict the box office outcome.
+</p>
+
+<div class="form-grid">
 
 <div class="input-group">
 <label>Movie Name</label>
-<input type="text" id="movieName">
+<input type="text" id="movieName" placeholder="Movie Name">
 </div>
 
 <div class="input-group">
@@ -147,112 +283,214 @@ button:hover{
 
 <div class="input-group">
 <label>Select Algorithm</label>
-<select id="algorithm">
+
+<select id="algorithm" onchange="updateModelInfo()">
+
 <option value="KNN">KNN</option>
-<option value="Random Forest">Random Forest</option>
-<option value="Decision Tree">Decision Tree</option>
-<option value="Logistic Regression">Logistic Regression</option>
-<option value="SVM">SVM</option>
+
+<option value="Random Forest">
+Random Forest
+</option>
+
+<option value="Decision Tree">
+Decision Tree
+</option>
+
+<option value="Logistic Regression">
+Logistic Regression
+</option>
+
+<option value="SVM">
+SVM
+</option>
+
 </select>
+
+</div>
+
+</div>
+
+<div class="model-card">
+
+<p id="modelInfo">
+🏆 KNN Accuracy: 89.36%
+</p>
+
 </div>
 
 <button onclick="predictMovie()">
-Predict Movie Success
+🎟 Predict Movie Success
 </button>
 
 <div id="result" class="result"></div>
 
-</div>
-
 <script>
+    const modelAccuracies = {
+    "KNN": "89.36%",
+    "Random Forest": "84.57%",
+    "Decision Tree": "84.04%",
+    "Logistic Regression": "72.87%",
+    "SVM": "71.28%"
+};
+
+function updateModelInfo(){
+
+    const model =
+    document.getElementById("algorithm").value;
+
+    document.getElementById("modelInfo").innerHTML =
+    `🏆 ${model} Accuracy: ${modelAccuracies[model]}`;
+}
 
 async function predictMovie(){
 
-    const movieName = document.getElementById("movieName").value;
-    const worldwide = document.getElementById("worldwide").value;
-    const indiaNet = document.getElementById("indiaNet").value;
-    const indiaGross = document.getElementById("indiaGross").value;
-    const overseas = document.getElementById("overseas").value;
-    const budget = document.getElementById("budget").value;
-    const algorithm = document.getElementById("algorithm").value;
+    const movieName =
+    document.getElementById("movieName").value;
 
-    if(
-        !worldwide ||
-        !indiaNet ||
-        !indiaGross ||
-        !overseas ||
-        !budget
-    ){
-        alert("Please fill all fields");
-        return;
-    }
+    const worldwide =
+    document.getElementById("worldwide").value;
+
+    const indiaNet =
+    document.getElementById("indiaNet").value;
+
+    const indiaGross =
+    document.getElementById("indiaGross").value;
+
+    const overseas =
+    document.getElementById("overseas").value;
+
+    const budget =
+    document.getElementById("budget").value;
+
+    const algorithm =
+    document.getElementById("algorithm").value;
+
+    const resultBox =
+    document.getElementById("result");
 
     try{
 
-        const response = await fetch("/api/predict",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                worldwide: worldwide,
-                india_net: indiaNet,
-                india_gross: indiaGross,
-                overseas: overseas,
-                budget: budget,
-                algorithm: algorithm
-            })
-        });
+        const response = await fetch(
+            "/api/predict",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
 
-        const data = await response.json();
+                    worldwide:worldwide,
+                    india_net:indiaNet,
+                    india_gross:indiaGross,
+                    overseas:overseas,
+                    budget:budget,
+                    algorithm:algorithm
 
-        const resultDiv = document.getElementById("result");
+                })
+            }
+        );
 
-        resultDiv.style.display = "block";
+        const data =
+        await response.json();
 
-        if(data.prediction === "Hit"){
+        if(data.error){
 
-            resultDiv.className = "result hit";
+            resultBox.style.display="block";
 
-            resultDiv.innerHTML = `
-                <h2>🎉 HIT</h2>
-                <br>
-                <p><strong>Movie:</strong> ${movieName || "N/A"}</p>
-                <p><strong>Model:</strong> ${algorithm}</p>
-                <p><strong>Prediction:</strong> ${data.prediction}</p>
+            resultBox.className="result flop";
+
+            resultBox.innerHTML=`
+                <h2>❌ Error</h2>
+                <p>${data.error}</p>
+            `;
+
+            return;
+        }
+
+        const prediction =
+        String(data.prediction).toLowerCase();
+
+        if(
+            prediction.includes("hit")
+        ){
+
+            resultBox.className =
+            "result hit";
+
+            resultBox.innerHTML=`
+
+            <h2>🎉 HIT</h2>
+
+            <p>
+            <strong>Movie:</strong>
+            ${movieName || "Not Provided"}
+            </p>
+
+            <p>
+            <strong>Model:</strong>
+            ${algorithm}
+            </p>
+
+            <p>
+            <strong>Accuracy:</strong>
+            ${modelAccuracies[algorithm]}
+            </p>
+
             `;
         }
         else{
 
-            resultDiv.className = "result flop";
+            resultBox.className =
+            "result flop";
 
-            resultDiv.innerHTML = `
-                <h2>❌ FLOP</h2>
-                <br>
-                <p><strong>Movie:</strong> ${movieName || "N/A"}</p>
-                <p><strong>Model:</strong> ${algorithm}</p>
-                <p><strong>Prediction:</strong> ${data.prediction}</p>
+            resultBox.innerHTML=`
+
+            <h2>📉 FLOP</h2>
+
+            <p>
+            <strong>Movie:</strong>
+            ${movieName || "Not Provided"}
+            </p>
+
+            <p>
+            <strong>Model:</strong>
+            ${algorithm}
+            </p>
+
+            <p>
+            <strong>Accuracy:</strong>
+            ${modelAccuracies[algorithm]}
+            </p>
+
             `;
         }
 
-    }catch(error){
+        resultBox.style.display="block";
 
-        console.error(error);
+    }
+    catch(error){
 
-        const resultDiv = document.getElementById("result");
+        resultBox.style.display="block";
 
-        resultDiv.style.display = "block";
-        resultDiv.className = "result flop";
+        resultBox.className="result flop";
 
-        resultDiv.innerHTML = `
-            <h2>⚠ Error</h2>
-            <br>
-            <p>Failed to connect to prediction API.</p>
+        resultBox.innerHTML=`
+
+        <h2>❌ Error</h2>
+
+        <p>
+        Unable to connect to prediction API.
+        </p>
+
         `;
     }
 }
 
+updateModelInfo();
+
 </script>
+
+</div>
 
 </body>
 </html>
