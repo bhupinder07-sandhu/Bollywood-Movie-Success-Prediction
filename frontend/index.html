@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bollywood Movie Success Prediction</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0f0f0f;
+    color:white;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+h1{
+    font-size:3rem;
+    color:#f5c518;
+    margin-bottom:20px;
+}
+
+.subtitle{
+    font-size:1.2rem;
+    max-width:800px;
+    color:#d1d1d1;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    background:#f5c518;
+    color:black;
+    padding:15px 35px;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.section{
+    padding:60px 10%;
+}
+
+.section h2{
+    color:#f5c518;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid #333;
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#f5c518;
+    color:black;
+}
+
+.best{
+    color:#4CAF50;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+<h1>🎬 Bollywood Movie Success Prediction</h1>
+
+<p class="subtitle">
+Predict whether a Bollywood movie will be a Hit or Flop using
+Machine Learning Classification Algorithms.
+</p>
+
+<a href="/predict" class="btn">
+Start Prediction
+</a>
+
+</section>
+
+<section class="section">
+
+<h2>Project Overview</h2>
+
+<div class="card">
+<ul>
+<li>Budget</li>
+<li>India Net Collection</li>
+<li>India Gross Collection</li>
+<li>Overseas Collection</li>
+</ul>
+
+<br>
+
+Target Variable:
+<strong>Hit / Flop</strong>
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Model Performance</h2>
+
+<table>
+<tr>
+<th>Algorithm</th>
+<th>Accuracy</th>
+</tr>
+
+<tr>
+<td>KNN</td>
+<td class="best">89.36%</td>
+</tr>
+
+<tr>
+<td>Random Forest</td>
+<td>84.57%</td>
+</tr>
+
+<tr>
+<td>Decision Tree</td>
+<td>84.04%</td>
+</tr>
+
+<tr>
+<td>Logistic Regression</td>
+<td>72.87%</td>
+</tr>
+
+<tr>
+<td>SVM</td>
+<td>71.28%</td>
+</tr>
+
+</table>
+
+</section>
+
+<section class="section">
+
+<h2>Dataset</h2>
+
+<div class="card">
+Top 1000 Bollywood Movies and Their Box Office Collection Dataset
+</div>
+
+</section>
+
+<footer>
+Bollywood Movie Success Prediction © 2026
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Prediction</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0f0f0f;
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:#1a1a1a;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(245,197,24,0.2);
+}
+
+.back-btn{
+    display:inline-block;
+    margin-bottom:20px;
+    text-decoration:none;
+    color:#f5c518;
+    font-weight:bold;
+}
+
+h1{
+    text-align:center;
+    color:#f5c518;
+    margin-bottom:25px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2a2a2a;
+    color:white;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#f5c518;
+    color:black;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+.result{
+    margin-top:20px;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    display:none;
+    font-size:18px;
+}
+
+.hit{
+    background:#1f7a3d;
+}
+
+.flop{
+    background:#8b1e1e;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<a href="/" class="back-btn">← Back to Home</a>
+
+<h1>🎬 Predict Movie Success</h1>
+
+<div class="input-group">
+<label>Movie Name</label>
+<input type="text" id="movieName">
+</div>
+
+<div class="input-group">
+<label>Budget</label>
+<input type="number" id="budget">
+</div>
+
+<div class="input-group">
+<label>India Net Collection</label>
+<input type="number" id="indiaNet">
+</div>
+
+<div class="input-group">
+<label>India Gross Collection</label>
+<input type="number" id="indiaGross">
+</div>
+
+<div class="input-group">
+<label>Overseas Collection</label>
+<input type="number" id="overseas">
+</div>
+
+<div class="input-group">
+<label>Select Algorithm</label>
+<select id="algorithm">
+<option>KNN</option>
+<option>Random Forest</option>
+<option>Decision Tree</option>
+<option>Logistic Regression</option>
+<option>SVM</option>
+</select>
+</div>
+
+<button onclick="predictMovie()">
+Predict Movie Success
+</button>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script>
+
+async function predictMovie(){
+
+    const movieName = document.getElementById("movieName").value;
+    const budget = document.getElementById("budget").value;
+    const indiaNet = document.getElementById("indiaNet").value;
+    const indiaGross = document.getElementById("indiaGross").value;
+    const overseas = document.getElementById("overseas").value;
+    const algorithm = document.getElementById("algorithm").value;
+
+    if(!budget || !indiaNet || !indiaGross || !overseas){
+        alert("Please fill all fields");
+        return;
+    }
+
+    const response = await fetch("/api/predict",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            movie_name:movieName,
+            budget:budget,
+            india_net:indiaNet,
+            india_gross:indiaGross,
+            overseas:overseas,
+            algorithm:algorithm
+        })
+    });
+
+    const data = await response.json();
+
+    const resultDiv = document.getElementById("result");
+
+    resultDiv.style.display = "block";
+
+    if(data.prediction === "Hit"){
+
+        resultDiv.className = "result hit";
+
+        resultDiv.innerHTML = `
+        <h2>🎉 HIT</h2>
+        <br>
+        <p><strong>Movie:</strong> ${movieName}</p>
+        <p><strong>Model:</strong> ${algorithm}</p>
+        `;
+    }
+    else{
+
+        resultDiv.className = "result flop";
+
+        resultDiv.innerHTML = `
+        <h2>❌ FLOP</h2>
+        <br>
+        <p><strong>Movie:</strong> ${movieName}</p>
+        <p><strong>Model:</strong> ${algorithm}</p>
+        `;
+    }
+}
+
+</script>
+
+</body>
+</html>
