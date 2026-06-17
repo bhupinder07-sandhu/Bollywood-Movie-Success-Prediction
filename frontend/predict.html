@@ -37,7 +37,7 @@ body{
     justify-content:center;
     align-items:center;
 
-    padding:30px;
+    padding:25px;
 
     color:white;
 }
@@ -45,7 +45,7 @@ body{
 .container{
 
     width:100%;
-    max-width:850px;
+    max-width:900px;
 
     background:#141414;
 
@@ -53,7 +53,7 @@ body{
 
     border-radius:25px;
 
-    padding:35px;
+    padding:30px;
 
     box-shadow:
     0 10px 30px rgba(0,0,0,.4);
@@ -85,21 +85,24 @@ h1{
 
     color:#d0d0d0;
 
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
 
 .form-grid{
 
     display:grid;
 
-    grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:1fr 1fr;
 
     gap:18px;
 }
 
 .input-group{
-    margin-bottom:15px;
+    margin-bottom:5px;
+}
+
+.full-width{
+    grid-column:1 / -1;
 }
 
 label{
@@ -139,29 +142,40 @@ select:focus{
 
 .model-card{
 
-    margin-top:20px;
+    margin-top:15px;
 
     background:#1c1c1c;
 
-    padding:18px;
+    padding:14px 20px;
 
     border-radius:15px;
 
     border-left:4px solid #f5c518;
+
+    width:fit-content;
+
+    min-width:380px;
+
+    margin-left:auto;
+    margin-right:auto;
+
+    text-align:center;
 }
 
 #modelInfo{
 
     color:#f5c518;
 
-    font-weight:600;
+    font-weight:700;
+
+    font-size:1.05rem;
 }
 
 button{
 
     width:100%;
 
-    margin-top:25px;
+    margin-top:20px;
 
     padding:16px;
 
@@ -193,7 +207,7 @@ button:hover{
 
 .result{
 
-    margin-top:25px;
+    margin-top:20px;
 
     padding:25px;
 
@@ -205,12 +219,10 @@ button:hover{
 }
 
 .hit{
-
     background:#14532d;
 }
 
 .flop{
-
     background:#7f1d1d;
 }
 
@@ -230,6 +242,14 @@ button:hover{
 
 h1{
     font-size:1.8rem;
+}
+
+.form-grid{
+    grid-template-columns:1fr;
+}
+
+.model-card{
+    min-width:100%;
 }
 
 }
@@ -281,28 +301,17 @@ Enter movie details and let Machine Learning predict the box office outcome.
 <input type="number" id="budget">
 </div>
 
-<div class="input-group">
+<div class="input-group full-width">
+
 <label>Select Algorithm</label>
 
 <select id="algorithm" onchange="updateModelInfo()">
 
 <option value="KNN">KNN</option>
-
-<option value="Random Forest">
-Random Forest
-</option>
-
-<option value="Decision Tree">
-Decision Tree
-</option>
-
-<option value="Logistic Regression">
-Logistic Regression
-</option>
-
-<option value="SVM">
-SVM
-</option>
+<option value="Random Forest">Random Forest</option>
+<option value="Decision Tree">Decision Tree</option>
+<option value="Logistic Regression">Logistic Regression</option>
+<option value="SVM">SVM</option>
 
 </select>
 
@@ -313,7 +322,7 @@ SVM
 <div class="model-card">
 
 <p id="modelInfo">
-🏆 KNN Accuracy: 89.36%
+🏆 Best Accuracy: 89.36% (KNN)
 </p>
 
 </div>
@@ -379,12 +388,12 @@ async function predictMovie(){
                 },
                 body:JSON.stringify({
 
-                    worldwide:worldwide,
-                    india_net:indiaNet,
-                    india_gross:indiaGross,
-                    overseas:overseas,
-                    budget:budget,
-                    algorithm:algorithm
+                    worldwide: worldwide,
+                    india_net: indiaNet,
+                    india_gross: indiaGross,
+                    overseas: overseas,
+                    budget: budget,
+                    algorithm: algorithm
 
                 })
             }
@@ -400,8 +409,11 @@ async function predictMovie(){
             resultBox.className="result flop";
 
             resultBox.innerHTML=`
-                <h2>❌ Error</h2>
-                <p>${data.error}</p>
+
+            <h2>❌ Error</h2>
+
+            <p>${data.error}</p>
+
             `;
 
             return;
@@ -410,9 +422,7 @@ async function predictMovie(){
         const prediction =
         String(data.prediction).toLowerCase();
 
-        if(
-            prediction.includes("hit")
-        ){
+        if(prediction.includes("hit")){
 
             resultBox.className =
             "result hit";
@@ -432,7 +442,7 @@ async function predictMovie(){
             </p>
 
             <p>
-            <strong>Accuracy:</strong>
+            <strong>Model Accuracy:</strong>
             ${modelAccuracies[algorithm]}
             </p>
 
@@ -458,7 +468,7 @@ async function predictMovie(){
             </p>
 
             <p>
-            <strong>Accuracy:</strong>
+            <strong>Model Accuracy:</strong>
             ${modelAccuracies[algorithm]}
             </p>
 
